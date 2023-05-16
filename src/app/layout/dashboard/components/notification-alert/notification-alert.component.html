@@ -1,0 +1,23 @@
+<a class="nav-link" href="javascript:void(0)" ngbDropdownToggle>
+  <i class="fa fa-bell"></i>
+  <!-- Counter - Alerts -->
+  <span class="badge badge-danger badge-counter">{{this.totalAmount}}</span>
+</a>
+<!-- Dropdown - Alerts -->
+<div class="dropdown-list dropdown-menu-right shadow" ngbDropdownMenu>
+  <h6 class="dropdown-header">Alerts Center</h6>
+  <div [ngClass]="{'unreaded-message': !notification.isRead }" *ngFor="let notification of notifications; let i=index;">
+    <a class="dropdown-item d-flex align-items-center" [routerLink]="['/notifications']" href="javascript:void(0)">
+      <div class="mr-3">
+        <div class="icon-circle">
+          <i class="fas fa-file-alt text-white"></i>
+        </div>
+      </div>
+      <div>
+        <div class="small text-gray-500">{{notification.caption}}</div>
+        <span [ngClass]="{'unreaded-text': !notification.isRead }">{{notification.description}}</span>
+      </div>
+    </a>
+  </div>
+  <a [routerLinkActive]="['router-link-active']" [routerLink]="['/notifications']" class="dropdown-item text-center small text-gray-500">Show More</a>
+</div>

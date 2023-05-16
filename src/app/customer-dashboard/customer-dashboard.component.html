@@ -1,0 +1,78 @@
+<div class="customer-dashboard h-100">
+  <div *ngIf="dataSource" class="h-100">
+    <mat-toolbar class="header">
+      <mat-toolbar-row>
+        <div class="d-flex justify-content-between w-100">
+          <div class="my-auto"><img class="logo-style" src="assets/images/logo.svg" /></div>
+          <div class="project-name my-auto">
+            {{ dataSource.projectName }}
+          </div>
+          <div>
+            <label class="mr-1 header-filter">Mounth:</label>
+            <mat-button-toggle-group [value]="preMonth" (change)="filterMonthChange($event)" name="fontStyle" aria-label="Font Style">
+              <mat-button-toggle [checked]="true" [value]="false">Current</mat-button-toggle>
+              <mat-button-toggle [value]="true">Previous</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div *ngIf="!loading">
+      <mat-card class="m-2">
+        <table mat-table [dataSource]="dataSource.userReports" class="w-100">
+          <ng-container matColumnDef="user">
+            <th mat-header-cell *matHeaderCellDef>User</th>
+            <td mat-cell *matCellDef="let element">{{ element.firstName + ' ' + element.lastName }}</td>
+          </ng-container>
+
+          <ng-container *ngFor="let item of generalTableDisplayedWeeks" matColumnDef="{{ item }}">
+            <th mat-header-cell *matHeaderCellDef>{{ item }}</th>
+            <td mat-cell *matCellDef="let element">{{ GetWeekTotalHours(item, element.reportForWeeks) }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef>Total</th>
+            <td mat-cell *matCellDef="let element">{{ element.totalTime.hours + ':' + element.totalTime.minutes }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="generalTableDisplayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: generalTableDisplayedColumns"></tr>
+        </table>
+      </mat-card>
+      <mat-card class="m-2">
+        <mat-card-header>
+          <mat-card-title>Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table class="details-card-table" mat-table [dataSource]="dataSource.activities" class="w-100">
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef>Description</th>
+              <td mat-cell *matCellDef="let element">
+                <mat-form-field class="description">
+                  <textarea matInput class="w-100" [disabled]="true" [value]="element.description" matInput></textarea>
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="worker">
+              <th mat-header-cell *matHeaderCellDef>Worker</th>
+              <td mat-cell *matCellDef="let element">{{ element.userName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="duration">
+              <th mat-header-cell *matHeaderCellDef>Duration</th>
+              <td mat-cell *matCellDef="let element">{{ timeAppService.minutesToHoursMinutes(element.duration) }}</td>
+            </ng-container>
+            <ng-container matColumnDef="time">
+              <th mat-header-cell *matHeaderCellDef>Time</th>
+              <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="detailsTableDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: detailsTableDisplayedColumns"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

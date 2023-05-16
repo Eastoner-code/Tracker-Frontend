@@ -1,0 +1,26 @@
+@import '../../styles/variables.scss';
+
+.customer-dashboard {
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .header {
+    background-color: $night-background-color;
+    color: $white-color;
+    &-filter {
+      font-size: 1rem;
+    }
+  }
+
+  .logo-style {
+    width: 125px;
+  }
+
+  .description {
+    width: 97%;
+    textarea {
+      resize: none;
+    }
+  }
+}

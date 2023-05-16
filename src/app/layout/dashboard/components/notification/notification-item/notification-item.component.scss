@@ -1,0 +1,65 @@
+@import '../../../../../../styles/variables.scss';
+
+.header {
+  margin: 15px 0;
+  box-shadow: 0 5px 5px -2px #7b7a7a;
+}
+
+.summary-stats-block {
+  display: inline-block;
+  height: max-content;
+
+  .summary-stats-title {
+    border-bottom: 1px solid gray;
+    padding: 10px 0;
+    margin: 10px 0;
+  }
+
+  .summary-stats {
+  }
+
+  .bottom-bordered {
+    border-bottom: 1px solid grey;
+    padding: 10px 0;
+  }
+}
+
+.team-table {
+  display: block;
+  overflow-x: auto;
+}
+
+.button-assign {
+  color: $white-color;
+  background-color: $button-green-color;
+}
+
+.button-position {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.modal-content {
+  z-index: 1 !important;
+}
+
+::ng-deep ngb-modal-backdrop.modal-backdrop {
+  z-index: 1 !important;
+}
+
+::ng-deep ngb-modal-window.modal {
+  z-index: 1 !important;
+}
+
+.color-red {
+  color: $delete-color;
+}
+
+.p-left-20 {
+  padding-left: 20px;
+}

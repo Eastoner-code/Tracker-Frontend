@@ -1,0 +1,46 @@
+<div class="row activity-item" [ngClass]="{ 'edit-disabled': !edit }">
+  <div class="col-md-6 col-lg-4 day-activity_item_data">
+    <div class="row">
+      <app-time-picker [edit]="edit" [workedFrom]="activity.workedFromUtc" [workedTo]="activity.workedToUtc" [pickerId]="activity.id">
+      </app-time-picker>
+    </div>
+  </div>
+  <div class="col-md-2 col-lg-2 day-activity_item_text">
+    <mat-form-field>
+      <mat-select [disabled]="!edit" (selectionChange)="onChangeProjects($event.value)" placeholder="Project" [value]="activity.projectId">
+        <mat-option *ngFor="let item of this.projects" [value]="item.id">{{ item.name }} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-2 col-lg-5 day-activity_item_text">
+    <mat-form-field class="h-100">
+      <textarea
+        class="h-100"
+        [disabled]="!edit"
+        (change)="descriptionChange($event)"
+        [value]="activity.description"
+        matInput
+        placeholder="Description"
+      ></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-1 col-lg-1 day-activity_actions">
+    <div *ngIf="!edit" class="dropdown_wrapper day-activity_item_actions-dropdown" tabindex="-1">
+      <mat-menu #appMenu="matMenu" yPosition="below">
+        <button (click)="editEnable()" class="action" mat-menu-item>Edit</button>
+        <button (click)="remove(activity.id)" class="action" mat-menu-item>Delete</button>
+      </mat-menu>
+
+      <button [matMenuTriggerFor]="appMenu" mat-icon-button [disabled]="disabled">
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+    </div>
+    <button *ngIf="edit" mat-icon-button>
+      <mat-icon (click)="updateActivityItem()">check</mat-icon>
+    </button>
+    <button *ngIf="edit" mat-icon-button>
+      <mat-icon (click)="canselEdit()">close</mat-icon>
+    </button>
+  </div>
+</div>

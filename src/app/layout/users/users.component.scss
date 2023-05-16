@@ -1,0 +1,66 @@
+@import '../../../styles/variables.scss';
+
+::ng-deep .mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-indeterminate,
+.mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate {
+  background: $button-green-color !important;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+}
+
+.inviteMemberButton {
+  height: 45px;
+  margin-top: 10px;
+  color: $white-color;
+  background-color: $button-green-color;
+}
+
+::ng-deep .modal-content {
+  z-index: 1;
+  margin-top: 65px;
+  padding: 0 2rem;
+  button {
+    outline: none;
+  }
+}
+
+::ng-deep ngb-modal-backdrop.modal-backdrop {
+  z-index: 1 !important;
+}
+
+::ng-deep ngb-modal-window.modal {
+  z-index: 1 !important;
+}
+
+.inviteButton {
+  color: $white-color;
+  background-color: $button-green-color;
+}
+
+.action-link-icon {
+  padding-right: 7px;
+  font-size: 22px;
+}
+
+.edit-link {
+  color: $edit-green-color;
+}
+
+.rate-link {
+  color: $money-green-color;
+}
+
+.archive-link {
+  color: $delete-color;
+}
+
+.roles-link {
+  color: $rolos-blue-color;
+}

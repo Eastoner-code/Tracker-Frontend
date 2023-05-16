@@ -1,0 +1,163 @@
+<h4 class="page-header">Expenses</h4>
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="Expenses">
+    <div class="add-expense-button">
+      <button class="btn btn-success" (click)="addExpense(addModal)">Add Expense</button>
+    </div>
+    <table mat-table [dataSource]="expenses" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef>User Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.userName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let element">{{ element.currency }} {{ element.amount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element" class="text-right">
+          <span class="edit-block text-left">
+            <a href="javascript:void(0)" (click)="viewExpense(element, addModal)" class="action-link-icon">
+              <i class="far fa-eye"></i>
+            </a>
+            <a
+              href="javascript:void(0)"
+              (click)="removeExpense(deleteModal)"
+              class="action-link-icon remove-link"
+              *ngIf="pendingStatus(element)"
+            >
+              <i class="far fa-trash-alt"></i>
+            </a>
+            <a
+              href="javascript:void(0)"
+              (click)="editExpense(element, addModal)"
+              class="action-link-icon edit-link"
+              *ngIf="pendingStatus(element)"
+            >
+              <i class="far fa-edit"></i>
+            </a>
+          </span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-tab>
+  <mat-tab label="Expenses History">
+    <table mat-table [dataSource]="expensesHistory" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef>User Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.userName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let element">{{ element.currency }} {{ element.amount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element" class="text-right">
+          <span class="edit-block text-left">
+            <a href="javascript:void(0)" (click)="viewExpense(element, addModal)" class="action-link-icon">
+              <i class="far fa-eye"></i>
+            </a>
+          </span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsHistory"></tr>
+    </table>
+  </mat-tab>
+</mat-tab-group>
+
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Remove Expense</h4>
+  </div>
+  <div class="modal-body">
+    <span>You want to remove expense. Are you sure?</span>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="modal.close()">Remove</button>
+    <button class="btn btn-default" (click)="modal.dismiss()">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #addModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ action }} Expense</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addExpenseOptions">
+      <div class="row">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput [formControl]="nameControl" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="fill">
+          <mat-label>Unit Price</mat-label>
+          <input matInput [formControl]="unitPriceControl" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="fill">
+          <mat-label>Quantity</mat-label>
+          <input matInput [formControl]="quantityControl" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="fill">
+          <mat-select [formControl]="currencyControl" required>
+            <mat-option value="USD">USD</mat-option>
+            <mat-option value="UAH">UAH</mat-option>
+          </mat-select>
+          <mat-label>
+            <i>Select curency:</i>
+          </mat-label>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput [formControl]="descControl"></textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="modal.dismiss()" *ngIf="action !== 'View'">{{ action }}</button>
+    <button class="btn btn-default" ngbAutofocus (click)="modal.close()">Cancel</button>
+  </div>
+</ng-template>

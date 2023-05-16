@@ -1,0 +1,51 @@
+@import '../../../styles/variables.scss';
+
+.day-activity-header {
+  padding: 1.33rem 0 0;
+  position: relative;
+  margin-bottom: 1rem;
+  font-size: 13px;
+  line-height: 1.38;
+  color: $night-background-color;
+
+  .header-date {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 15px;
+  }
+
+  .header-stats {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+    padding-left: 9px;
+    font-size: 13px;
+    line-height: 1.38;
+    letter-spacing: normal;
+  }
+
+  .header-stats:before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    display: block;
+    left: 0;
+    top: 50%;
+    margin-top: -2px;
+    background: $night-background-color;
+    border-radius: 50%;
+  }
+}
+
+.day-activity-item {
+  border-bottom: 1px solid #e6e9ed;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li:first-child {
+  border-top: 1px solid #e6e9ed;
+}

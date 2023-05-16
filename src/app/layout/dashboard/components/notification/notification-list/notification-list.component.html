@@ -1,0 +1,17 @@
+<table class="table col-md-12" *ngIf="notifications?.length">
+  <thead class="thead-light">
+    <tr class="row">
+      <th scope="col" class="col-md-4">Caption</th>
+      <th scope="col" class="col-md-6">Description</th>
+      <th scope="col" class="col-md-2">Created on</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="row" *ngFor="let notification of notifications | paginate: page">
+      <td class="col-md-4">{{ notification.caption }}</td>
+      <td class="col-md-6">{{ notification.description }}</td>
+      <td class="col-md-2">{{ notification.createdOn }}</td>
+    </tr>
+    <tr></tr>
+  </tbody>
+</table>

@@ -1,0 +1,78 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+::ng-deep i {
+  width: 20px !important;
+  text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+  .main-container {
+    margin-left: 0 !important;
+  }
+}
+
+@media print {
+  .main-container {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+  }
+}
+
+::ng-deep .basic-width {
+  max-width: 180px;
+}
+
+::ng-deep .mat-select-panel::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+::ng-deep .mat-select-panel {
+  margin: 38px 0;
+}
+
+::ng-deep .modal-content {
+  z-index: 1;
+  margin-top: 65px;
+  padding: 0 2rem;
+
+  button {
+    outline: none;
+  }
+}
+
+::ng-deep ngb-modal-backdrop.modal-backdrop {
+  z-index: 1 !important;
+}
+
+::ng-deep ngb-modal-window.modal {
+  z-index: 1 !important;
+
+  ::ng-deep .modal-header {
+    border-bottom: none;
+  }
+
+  ::ng-deep .modal-footer {
+    border-top: none;
+  }
+}
+
+::ng-deep .mat-button-base {
+  outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+*:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}

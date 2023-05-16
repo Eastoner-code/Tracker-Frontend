@@ -1,0 +1,13 @@
+@import '../../../styles/variables.scss';
+
+.salary-container {
+  .total-row {
+    font-weight: bold;
+    font-size: 1.3pc;
+    margin: 0;
+  }
+
+  .table-absence-header {
+    background: $athens-gray;
+  }
+}

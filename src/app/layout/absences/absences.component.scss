@@ -1,0 +1,19 @@
+@import '../../../styles/variables.scss';
+
+.absences-tab-container {
+  margin: 10px;
+
+  .request-absence-btn {
+    background: $button-green-color;
+    margin-bottom: 16px;
+  }
+}
+
+.action-link-icon {
+  padding-right: 7px;
+  font-size: 18px;
+}
+
+.remove-link {
+  color: $delete-color;
+}

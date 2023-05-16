@@ -1,0 +1,64 @@
+<div class="salary-container">
+  <div>
+    <h5>Salary page</h5>
+  </div>
+
+  <app-arrow-monthpicker (onMonthChange)="onMonthChangeEvent($event)"></app-arrow-monthpicker>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Project name</th>
+              <th scope="col">Hours, h</th>
+              <th scope="col">Rate, $/h</th>
+              <th scope="col">Salary, $</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of salary.activitySalaries">
+              <td>{{ item.project }}</td>
+              <td>{{ item.hoursCount }}</td>
+              <td>{{ item.ratePerHour }}</td>
+              <td>{{ item.amount }}</td>
+            </tr>
+
+            <tr class="table-absence-header" *ngIf="salary.publicHolidaySalaries && salary.publicHolidaySalaries.length">
+              <th scope="col">Holiday</th>
+              <th scope="col">Hours, h</th>
+              <th scope="col">Rate, $/h</th>
+              <th scope="col">Salary, $</th>
+            </tr>
+            <tr *ngFor="let item of salary.publicHolidaySalaries">
+              <td>{{ item.holiday }}</td>
+              <td>{{ item.hoursCount }}</td>
+              <td>{{ item.ratePerHour }}</td>
+              <td>{{ item.amount }}</td>
+            </tr>
+
+            <tr class="table-absence-header" *ngIf="salary.absenceSalaries && salary.absenceSalaries.length">
+              <th scope="col">Absence type</th>
+              <th scope="col">Hours, h</th>
+              <th scope="col">Rate, $/h</th>
+              <th scope="col">Salary, $</th>
+            </tr>
+            <tr *ngFor="let item of salary.absenceSalaries">
+              <td>{{ item.type | absenceType }} ({{ item.dates }})</td>
+              <td>{{ item.hoursCount }}</td>
+              <td>{{ item.ratePerHour }}</td>
+              <td>{{ item.amount }}</td>
+            </tr>
+            <tr class="total-row">
+              <td>Total:</td>
+              <td></td>
+              <td></td>
+              <td>{{ salary.monthAmount }} $</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

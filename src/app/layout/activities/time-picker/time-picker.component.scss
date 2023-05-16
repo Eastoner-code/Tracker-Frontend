@@ -1,0 +1,27 @@
+@import '../../../../styles/variables.scss';
+
+mat-form-field {
+  width: 11rem;
+  > div {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+::ng-deep {
+  .mat-form-field-infix {
+    display: flex;
+    padding-bottom: 0;
+
+    .ngx-material-timepicker-toggle {
+      position: relative;
+      top: -18px;
+    }
+  }
+
+  .mat-form-field-disabled {
+    .ngx-material-timepicker-toggle {
+      color: $gray-color;
+    }
+  }
+}

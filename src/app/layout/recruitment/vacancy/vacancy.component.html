@@ -1,0 +1,25 @@
+<div *ngIf="vacancies?.length">
+  <table class="table col-md-12">
+    <thead class="thead-light">
+      <tr class="row">
+        <th scope="col" class="col-md-8">Title</th>
+        <th scope="col" class="col-md-2">Description</th>
+        <th scope="col" class="col-md-2">Due Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <a *ngFor="let vacancy of vacancies | paginate: page" 
+        [routerLink]="['/candidates/', vacancy.id]">
+        <tr class="row">
+          <td class="col-md-8">{{ vacancy.title }}</td>
+          <td class="col-md-2">{{ vacancy.description }}</td>
+          <td class="col-md-2">{{ this.pipe.transform(vacancy.dueDate, 'short') }}</td>
+        </tr>
+      </a>
+      <tr></tr>
+    </tbody>
+  </table>
+  <div class="d-flex w-100 justify-content-end">
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+</div>

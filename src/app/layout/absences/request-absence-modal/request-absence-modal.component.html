@@ -1,0 +1,51 @@
+<div class="container">
+  <h4>Request absence</h4>
+  <form (ngSubmit)="onSubmit()" [formGroup]="requestAbsenceOptions">
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-select [formControl]="typeAbsenceControl" required [disabled]="isReadOnly">
+          <mat-option>-- None --</mat-option>
+          <mat-option value="1">Vacation</mat-option>
+          <mat-option value="2">Sick leave</mat-option>
+          <mat-option value="3">Day off</mat-option>
+        </mat-select>
+        <mat-label>
+          <i>Select absence type:</i>
+        </mat-label>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker" [disabled]="isReadOnly">
+          <input matStartDate [formControl]="startDateControl" placeholder="Start date" />
+          <input matEndDate [formControl]="endtDateControl" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+    <div class="row workday-duration-container" *ngIf="isOneDay">
+      <label class="col-md-12">Workday duration:</label>
+      <mat-radio-group [formControl]="fullDayControl" [disabled]="isReadOnly">
+        <mat-radio-button value="true" class="col-md-12">Full day</mat-radio-button>
+        <mat-radio-button value="false" class="col-md-12">Half day</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="row">
+      <label>Description:</label>
+      <input class="textarea" role="textbox" [formControl]="descControl" contenteditable [readOnly]="isReadOnly" />
+    </div>
+
+    <div *ngIf="!isReadOnly" class="footer row d-flex justify-content-end">
+      <button type="button" class="btn btn-default" (click)="onCancelClick()">Cancel</button>
+      <button type="submit" class="btn btn-success request-btn">Request</button>
+    </div>
+
+    <div *ngIf="isApproveView" class="footer row d-flex justify-content-end">
+      <button type="button" class="btn btn-default" (click)="onReject()">Reject</button>
+      <button type="submit" class="btn btn-success request-btn" (click)="onApprove()">Approve</button>
+    </div>
+  </form>
+</div>

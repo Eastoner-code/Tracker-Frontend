@@ -1,0 +1,19 @@
+@import '../../../../styles/variables.scss';
+
+.example-chip-list {
+  width: 100%;
+}
+
+.editProfileButton {
+  margin-right: 20px;
+  height: 45px;
+
+  margin-top: 10px;
+  color: $white-color;
+  background-color: $button-green-color;
+}
+
+.inviteButton {
+  color: $white-color;
+  background-color: $button-green-color;
+}

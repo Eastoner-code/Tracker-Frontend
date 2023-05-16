@@ -1,0 +1,78 @@
+<div class="reports-component-container">
+  <h4 class="page-header">Reports</h4>
+  <div class="row d-flex align-items-end">
+    <div class="col-3">
+      <mat-form-field>
+        <mat-select (selectionChange)="onChangeTableType()" [formControl]="projects" multiple placeholder="{{ getProjectsPlaceholder }}">
+          <mat-option *ngFor="let item of projectData" [value]="item.id">{{ item.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-3">
+      <mat-form-field>
+        <mat-select (selectionChange)="onChangeTableType()" [formControl]="users" multiple placeholder="{{ getWorkersPlaceholder }}">
+          <mat-option *ngFor="let item of userData" [value]="item.userId">{{ item.firstName }} {{ item.lastName }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="showDiagrams" class="col-3">
+      <mat-form-field>
+        <mat-select (selectionChange)="onChangeTableType()" [formControl]="tableTypes">
+          <mat-option *ngFor="let item of tableTypeData" [value]="item.id">{{ item.name }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-3">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <mat-date-range-input
+          [formGroup]="date"
+          [rangePicker]="datePicker"
+          [comparisonStart]="date.value.start"
+          [comparisonEnd]="date.value.end"
+        >
+          <input matStartDate placeholder="Start date" formControlName="start" [attr.disabled]="true" />
+          <input matEndDate placeholder="End date" formControlName="end" (dateChange)="updateDatePicker()" [attr.disabled]="true" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #datePicker disabled="false"></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th *ngFor="let header of tableHeders" scope="col">
+                {{ header }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of tableBody">
+              <td *ngFor="let cell of row">{{ cell }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th *ngFor="let footer of tableFooters">
+                {{ footer }}
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="!showDiagrams" class="col-12 image-center">
+      <img class="fit-picture" src="../../../assets/images/no-data.jpg" *ngIf="!showLoader" />
+      <app-loader class="loader" *ngIf="showLoader"></app-loader>
+    </div>
+  </div>
+</div>

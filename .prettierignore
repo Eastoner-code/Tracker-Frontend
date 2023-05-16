@@ -1,0 +1,12 @@
+e2e/
+node_modules/
+src/api/
+src/asserts/
+src/environments/
+.vscode/
+.idea/
+.vscode/
+.prettierignore
+package-lock.json
+package.json
+yarn.lock

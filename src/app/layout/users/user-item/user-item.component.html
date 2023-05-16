@@ -1,0 +1,120 @@
+<div *ngIf="member">
+  <h4 class="page-header">
+    {{ member?.firstName + ' ' + member?.lastName }}
+
+    profile
+  </h4>
+  <form *ngIf="member" [formGroup]="profileForm">
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="example-full-width">
+          <input formControlName="firstName" matInput placeholder="First name" />
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field class="example-full-width">
+          <input formControlName="lastName" matInput placeholder="Last name" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="example-full-width">
+          <input formControlName="email" matInput placeholder="Email" />
+          <mat-error *ngIf="profileForm.controls['email']?.invalid && profileForm.controls['email']?.touched">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="profileForm.controls['email']?.hasError('required')"> Email is <strong>required</strong> </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field>
+          <mat-select
+            (selectionChange)="onChangeProjects($event.value)"
+            [(ngModel)]="selectedProjects"
+            formControlName="projects"
+            multiple
+            placeholder="Choose active projects"
+          >
+            <mat-option *ngFor="let item of projectData" [value]="item.id">{{ item.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipPositionsList aria-label="chipPosition selection">
+            <mat-chip
+              (removed)="removeChipPosition(chipPosition)"
+              *ngFor="let chipPosition of selectedChipPositions"
+              [removable]="true"
+              [selectable]="true"
+            >
+              {{ chipPosition.name }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+
+            <input
+              #chipPositionInput
+              (matChipInputTokenEnd)="addChipPosition($event)"
+              [formControl]="chipPositionForm"
+              [matAutocomplete]="autoPositions"
+              [matChipInputAddOnBlur]="true"
+              [matChipInputFor]="chipPositionsList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              placeholder="Member's Positions"
+            />
+          </mat-chip-list>
+          <mat-autocomplete #autoPositions="matAutocomplete" (optionSelected)="selectChipPosition($event)">
+            <mat-option *ngFor="let chipPosition of filteredChipPositions | async" [value]="chipPosition.id">
+              {{ chipPosition.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipSkillsList aria-label="chipSkill selection">
+            <mat-chip
+              (removed)="removeChipSkill(chipSkill)"
+              *ngFor="let chipSkill of selectedChipSkills"
+              [removable]="true"
+              [selectable]="true"
+            >
+              {{ chipSkill.skill }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+
+            <input
+              #chipSkillInput
+              (matChipInputTokenEnd)="addChipSkill($event)"
+              [formControl]="chipSkillForm"
+              [matAutocomplete]="autoSkills"
+              [matChipInputAddOnBlur]="true"
+              [matChipInputFor]="chipSkillsList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              placeholder="Member's Skills"
+            />
+          </mat-chip-list>
+          <mat-autocomplete #autoSkills="matAutocomplete" (optionSelected)="selectChipSkill($event)">
+            <mat-option *ngFor="let chipSkill of filteredChipSkills | async" [value]="chipSkill.id">
+              {{ chipSkill.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12">
+        <button class="btn editProfileButton" type="button">Edit Profile</button>
+      </div>
+    </div>
+  </form>
+  <mat-spinner *ngIf="!member"></mat-spinner>
+</div>
+
+<app-loader *ngIf="!member"></app-loader>

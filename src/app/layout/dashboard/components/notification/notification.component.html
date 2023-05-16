@@ -1,0 +1,56 @@
+<!--<div>
+  <h4 class="page-header">Notifications</h4>
+  <div class="notification-container">
+    <div *ngIf="notifications?.length;" class="col-12">
+      <table class="table col-md-12" *ngIf="notifications?.length">
+        <tbody>
+          <tr class="row" [ngClass]="{'unread': !notification.isRead }" *ngFor="let notification of notifications | paginate: page">
+            <td class="col-md-4">{{ notification.caption }}</td>
+            <td class="col-md-6">{{ notification.description }}</td>
+            <td class="col-md-2">{{ this.pipe.transform(notification.createdOn, 'short') }}</td>
+          </tr>
+          <tr></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex w-100 justify-content-end">
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    </div>
+  </div>
+</div> -->
+
+<div>
+  <h4 class="page-header">Notifications</h4>
+  <div class="notification-container">
+      <a class="notification-message"
+       *ngFor="let notification of notifications | paginate: page"
+       [ngClass]="{'unread': !notification.isRead }"
+       (click)="this.markAsRead(notification.id, notification.isRead)">
+        <div class="note-core">
+          <div class="note-image">
+            <div class="icon-circle">
+              <i class="fas fa-file-alt text-white"></i>
+            </div>
+          </div>
+
+          <div class="note-text">
+            <div class="note-headline">
+              <span class="note-caption">{{ notification.caption }}</span>
+              <span class="note-createdon">{{ this.pipe.transform(notification.createdOn, 'short') }}</span>
+            </div>
+            <span class="note-desc">{{ notification.description }}</span>
+          </div>
+        </div>
+
+        <div class="note-delete">
+          <div class="dropdown-menu-right" ngbDropdownMenu>
+            <i class="fa fa-trash" (click)="onDelete(notification.id)"></i>
+          </div>
+        </div>
+      </a>
+  </div>
+
+  <div class="d-flex w-100 justify-content-end">
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+@import '../../styles/variables.scss';
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+i {
+  color: #cdcdcd;
+  font-size: 25px;
+}
+
+.col-form-label {
+  padding-top: 0;
+}
+
+form {
+  margin: 30px auto 0;
+  min-width: 260px;
+  max-width: 300px;
+
+  ::ng-deep .mat-password-strength-info {
+    text-align: left;
+  }
+
+  .form-control:disabled {
+    background-color: transparent;
+  }
+
+  /* Change the white to any color ;) */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
+
+  .submitButton {
+    color: white;
+    background-color: #99cc22;
+  }
+}
+
+.bg {
+  /* The image used */
+  background-image: (
+    linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    url('https://source.unsplash.com/1920x1080/?night,bridges')
+  );
+  height: 100%;
+  width: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0;
+  transition: 0.5s ease-in-out all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .authorization-block {
+    max-width: max-content;
+    z-index: 2;
+  }
+
+  .shadow-block {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $black-opacity-color;
+  }
+}
+
+.register-card,
+.login-card {
+  .mat-card-avatar {
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .mat-card-title {
+    position: relative;
+    margin: 0 auto;
+    top: -40px;
+    background-color: #222;
+    border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.75);
+    padding: 10px;
+    width: fit-content;
+  }
+
+  ::ng-deep .mat-card-header-text {
+    margin: 0;
+  }
+}
+
+.mat-spinner {
+  position: absolute;
+  z-index: 999;
+  margin-left: 50%;
+  margin-right: 50%;
+}

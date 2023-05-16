@@ -1,0 +1,28 @@
+<h4>Manage "{{ userName }}" roles</h4>
+<br />
+<div cdkDropListGroup>
+  <div class="example-container">
+    <h6>User roles</h6>
+
+    <div cdkDropList [cdkDropListData]="userRoles" class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of userRoles" cdkDrag>
+        {{ item }}
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h6>All roles</h6>
+
+    <div cdkDropList [cdkDropListData]="allRoles" class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of allRoles" cdkDrag>
+        {{ item }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <button (click)="save()" class="btn" type="button">Save</button>
+  <button (click)="cancel()" class="btn" type="button">Cancel</button>
+</div>

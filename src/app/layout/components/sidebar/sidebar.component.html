@@ -1,0 +1,48 @@
+<nav [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }" class="sidebar">
+  <div class="list-group">
+    <a [routerLinkActive]="['router-link-active']" class="list-group-item" routerLink="/dashboard">
+      <i class="fas fa-th-large"></i>
+      <span>{{ 'Dashboard' }}</span>
+    </a>
+    <a isAdmin isSuperAdmin [routerLinkActive]="['router-link-active']" [routerLink]="['/projects']" class="list-group-item">
+      <i class="fas fa-table"></i>
+      <span>{{ 'Projects' }}</span>
+    </a>
+    <a [routerLinkActive]="['router-link-active']" [routerLink]="['/reports']" class="list-group-item">
+      <i class="far fa-chart-bar"></i>
+      <span>{{ 'Reports' }}</span>
+    </a>
+    <a [routerLinkActive]="['router-link-active']" [routerLink]="['/activities']" class="list-group-item">
+      <i class="fas fa-business-time"></i>
+      <span>{{ 'My Activities' }}</span>
+    </a>
+    <a isAdmin isSuperAdmin [routerLinkActive]="['router-link-active']" [routerLink]="['/users']" class="list-group-item">
+      <i class="fas fa-user"></i>
+      <span>{{ 'Users' }}</span>
+    </a>
+    <a [routerLinkActive]="['router-link-active']" [routerLink]="['/absences']" class="list-group-item">
+      <i class="fas fa-user-clock"></i>
+      <span>Absences</span>
+    </a>
+    <a isAdmin isSuperAdmin [routerLinkActive]="['router-link-active']" [routerLink]="['/holidays']" class="list-group-item">
+      <i class="fas fa-glass-cheers"></i>
+      <span>{{ 'Holidays' }}</span>
+    </a>
+    <a isSuperAdmin isRecruiter [routerLinkActive]="['router-link-active']" [routerLink]="['/recruitment']" class="list-group-item">
+      <i class="fab fa-slideshare"></i>
+      <span>{{ 'Recruitment' }}</span>
+    </a>
+    <a isAdmin isSuperAdmin [routerLinkActive]="['router-link-active']" [routerLink]="['/salaries']" class="list-group-item">
+      <i class="fas fa-dollar-sign"></i>
+      <span>{{ 'Salaries' }}</span>
+    </a>
+    <a [routerLinkActive]="['router-link-active']" [routerLink]="['/expenses']" class="list-group-item">
+      <i class="fas fa-arrows-alt"></i>
+      <span>{{ 'Expenses' }}</span>
+    </a>
+  </div>
+  <div (click)="toggleCollapsed()" [ngClass]="{ collapsed: collapsed }" class="toggle-button">
+    <i class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"></i>&nbsp;
+    <span>{{ 'Collapse Sidebar' }}</span>
+  </div>
+</nav>

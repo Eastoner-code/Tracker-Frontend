@@ -1,0 +1,77 @@
+<h4 class="page-header">My Activities</h4>
+<div class="row">
+  <div class="mr-auto p-3">
+    <mat-form-field>
+      <mat-select
+        (selectionChange)="onChangeProjects($event.value)"
+        [(value)]="projectIds"
+        multiple
+        placeholder="Projects"
+        [disabled]="isEditable"
+      >
+        <mat-option *ngFor="let item of this.projectData" [value]="item.id">{{ item.name }} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="p-2 track-block">
+    <button
+      [disabled]="disableTrackTime()"
+      class="track-button"
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <i class="far fa-clock"></i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button (click)="trackTime(item.id)" *ngFor="let item of this.selectedProjects" mat-menu-item>
+        <span>{{ item.name }}</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="p-3">
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <mat-date-range-input
+        [formGroup]="date"
+        [rangePicker]="datePicker"
+        [comparisonStart]="date.value.start"
+        [comparisonEnd]="date.value.end"
+      >
+        <input matStartDate placeholder="Start date" formControlName="start" (ngModelChange)="updateDatePicker()" />
+        <input matEndDate placeholder="End date" formControlName="end" (ngModelChange)="updateDatePicker()" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #datePicker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="existActivities?.length; else activitiesNotExist" class="col-12">
+    <div class="col-12">
+      <header class="day-activity-header">
+        <h4 class="header-stats">Tracked {{ totalTime }}</h4>
+      </header>
+    </div>
+
+    <div class="col-12">
+      <app-activities-list
+        (removeActivityList)="removeActivity($event)"
+        (updateActivity)="updateActivity($event)"
+        (editActivity)="editActivity()"
+        (canselActivityList)="canselActivity($event)"
+        (pageChanged)="pageChanged($event)"
+        [activities]="existActivities"
+        [count]="rowCount"
+        [page]="currentPage"
+        [pageSize]="pageSize"
+      ></app-activities-list>
+    </div>
+  </div>
+
+  <ng-template #activitiesNotExist>
+    <div class="col-12 image-center" *ngIf="!showLoader">
+      <img class="fit-picture" src="../../../assets/images/no-data.jpg" />
+    </div>
+  </ng-template>
+  <app-loader class="loader" *ngIf="showLoader"></app-loader>
+</div>

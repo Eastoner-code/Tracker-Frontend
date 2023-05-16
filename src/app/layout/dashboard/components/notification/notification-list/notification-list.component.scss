@@ -1,0 +1,46 @@
+@import '../../../../../../styles/variables.scss';
+
+.projects-container {
+  .new-project-button {
+    height: 45px;
+    color: $white-color;
+    background-color: $button-green-color;
+  }
+
+  .save-button {
+    color: $white-color;
+    background-color: $button-green-color;
+  }
+
+  .row{
+    margin-left: 200px!important;
+  }
+
+  .table {
+    tr:hover:not(:last-child) {
+      background: $super-silver;
+    }
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  i {
+    font-size: 17px;
+    color: $gable-green;
+  }
+
+  .projects-total {
+    font-size: 12px;
+    color: $dark-gray-color;
+  }
+
+  .no-projects {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $gray-color;
+  }
+}

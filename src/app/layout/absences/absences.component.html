@@ -1,0 +1,122 @@
+<h4 class="page-header">Absences</h4>
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="Requests" *ngIf="isAbsenceApprover()">
+    <div class="container absences-tab-container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Dates</th>
+                  <th scope="col">Type</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of absencesRequests; let i = index">
+                  <td>{{ item.userName }}</td>
+                  <td>{{ item.totalDays }}</td>
+                  <td>{{ item.startDate }} - {{ item.endDate }}</td>
+                  <td>{{ item.type | absenceType }}</td>
+                  <td>
+                    <a href="javascript:void(0)" (click)="openForApprove(item)" class="action-link-icon">
+                      <i class="far fa-eye"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="My Absences">
+    <div class="container absences-tab-container">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="fill">
+            <mat-label>Year</mat-label>
+            <mat-select [formControl]="yearRange" (selectionChange)="chosenYearHandler($event)">
+              <mat-option *ngFor="let range of yearRanges" [value]="range.id"> {{ range.from | date }} - {{ range.to | date }} </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <table class="table table-bordered">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col" class="text-center">Available days</th>
+                <th scope="col" class="text-center">Used days</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Vacations</td>
+                <td class="text-center">
+                  {{ daysSummary.availableVacations }}
+                </td>
+                <td class="text-center">{{ daysSummary.usedVacations }}</td>
+              </tr>
+              <tr>
+                <td>Sick leaves</td>
+                <td class="text-center">
+                  {{ daysSummary.availableSickLeaves }}
+                </td>
+                <td class="text-center">{{ daysSummary.usedSickLeaves }}</td>
+              </tr>
+              <tr>
+                <td>Day Offs</td>
+                <td class="text-center"></td>
+                <td class="text-center">{{ daysSummary.usedDayOffs }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-end" *ngIf="isCurrentRange()">
+            <button class="btn btn-success request-absence-btn" (click)="openDialog()">Request absence</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Dates</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of myAbsences; let i = index">
+                  <td>{{ item.startDate }} - {{ item.endDate }}</td>
+                  <td>{{ item.totalDays }}</td>
+                  <td>{{ item.type | absenceType }}</td>
+                  <td>{{ item.status | absenceStatus }}</td>
+                  <td>
+                    <a href="javascript:void(0)" (click)="viewMyRequest(item)" class="action-link-icon">
+                      <i class="far fa-eye"></i>
+                    </a>
+                    <a
+                      *ngIf="item.status == 1"
+                      href="javascript:void(0)"
+                      (click)="removeRequest(item)"
+                      class="action-link-icon remove-link"
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

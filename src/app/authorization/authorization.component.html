@@ -1,0 +1,13 @@
+<div class="w-100 h-100">
+  <div *ngIf="imageLoaded === false" class="spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+  </div>
+  <div class="bg" id="dynamical_bg">
+    <div class="container authorization-block" tabindex="-1">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="shadow-block"></div>
+  </div>
+</div>

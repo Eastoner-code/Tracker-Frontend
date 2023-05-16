@@ -1,0 +1,27 @@
+<ol class="day-activity-list">
+  <li
+    *ngFor="
+      let activity of activities
+        | paginate
+          : {
+              itemsPerPage: pageSize,
+              currentPage: page,
+              totalItems: count
+            }
+    "
+    class="day-activity-item"
+  >
+    <app-activity-item
+      (removeActivityItem)="remove($event)"
+      (updateActivity)="updateActivityItem($event)"
+      (editActivity)="editActivityItem($event)"
+      (canselUpdateActivityItem)="canselActivity($event)"
+      [activity]="activity"
+      [projects]="projects"
+    ></app-activity-item>
+  </li>
+  <div class="d-flex justify-content-between">
+    <div></div>
+    <pagination-controls (pageChange)="handlePageChange($event)"></pagination-controls>
+  </div>
+</ol>

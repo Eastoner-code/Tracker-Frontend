@@ -1,0 +1,40 @@
+<mat-card class="login-card">
+  <mat-card-title>
+    <div class="login-header-image" mat-card-avatar>
+      <img alt="" src="../../../assets/images/small-logo.svg" />
+    </div>
+  </mat-card-title>
+  <mat-card-header>
+    <h3 class="mx-auto">SIGN IN</h3>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="loginForm">
+      <div class="form-group row justify-content-center">
+        <div class="col text-center">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput />
+            <mat-error *ngIf="!form.email.value"> Email is required </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group row justify-content-center">
+        <div class="col text-center">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Password</mat-label>
+            <input [type]="toggleVisibility.checked ? 'text' : 'password'" formControlName="password" matInput />
+            <mat-error *ngIf="!form.password.value"> Password is required </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="col-12">
+      <mat-slide-toggle #toggleVisibility matSuffix> Show Password</mat-slide-toggle>
+    </div>
+    <div class="col-12 text-center">
+      <button (click)="onSubmit()" class="btn submitButton" mat-button type="submit">Login</button>
+    </div>
+  </mat-card-actions>
+</mat-card>

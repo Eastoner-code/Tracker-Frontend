@@ -1,0 +1,25 @@
+mat-form-field {
+  width: 100%;
+  margin-top: 0.3rem;
+}
+::ng-deep {
+  .mat-form-field-subscript-wrapper {
+    display: none;
+  }
+  .activity-item {
+    mat-form-field * {
+      height: 100%;
+      textarea {
+        resize: none;
+      }
+    }
+    &.edit-disabled {
+      .mat-form-field-underline {
+        background: none;
+      }
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+    }
+  }
+}

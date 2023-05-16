@@ -1,0 +1,59 @@
+<div>
+  <div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input [disabled]="!edit" (dateChange)="workedFromDateChange($event)" [value]="workedFrom" matInput [matDatepicker]="picker" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col py-3">
+        <span>Duration:{{ getDuration() }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Worked From</mat-label>
+          <input
+            matInput
+            #time
+            [format]="24"
+            id="worked-from-{{ pickerId }}"
+            [ngxTimepicker]="pickerFrom"
+            [disabled]="!edit"
+            [max]="timeTo"
+            [value]="timeFrom"
+            [disableClick]="true"
+          />
+          <ngx-material-timepicker-toggle [for]="pickerFrom">
+            <mat-icon ngxMaterialTimepickerToggleIcon>access_time</mat-icon>
+          </ngx-material-timepicker-toggle>
+          <ngx-material-timepicker #pickerFrom (timeChanged)="workedFromTimeChange($event)" [theme]="darkTheme"> </ngx-material-timepicker>
+          <mat-error *ngIf="time.touched && time.invalid">Invalid Date</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Worked To</mat-label>
+          <input
+            matInput
+            #time
+            [format]="24"
+            id="worked-to-{{ pickerId }}"
+            [ngxTimepicker]="pickerTo"
+            [disabled]="!edit"
+            [min]="timeFrom"
+            [value]="timeTo"
+            [disableClick]="true"
+          />
+          <ngx-material-timepicker-toggle [for]="pickerTo">
+            <mat-icon ngxMaterialTimepickerToggleIcon>access_time</mat-icon>
+          </ngx-material-timepicker-toggle>
+          <ngx-material-timepicker #pickerTo (timeChanged)="workedToTimeChange($event)" [theme]="darkTheme"> </ngx-material-timepicker>
+          <mat-error *ngIf="time.touched && time.invalid">Invalid Date</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>

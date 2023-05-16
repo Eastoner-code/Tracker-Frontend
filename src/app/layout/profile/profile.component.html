@@ -1,0 +1,111 @@
+<mat-tab-group>
+  <mat-tab label="General">
+    <div *ngIf="userFormGroup" [formGroup]="userFormGroup" class="container profile-container">
+      <div class="row d-flex justify-content-center">
+        <h4>User Profile:</h4>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <mat-form-field appearance="fill" class="col-md-4">
+          <mat-label>Name</mat-label>
+          <input formControlName="firstName" matInput />
+          <mat-icon matSuffix class="edit-icon">mode_edit</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <mat-form-field appearance="fill" class="col-md-4">
+          <mat-label>Last name</mat-label>
+          <input matInput formControlName="lastName" />
+          <mat-icon matSuffix class="edit-icon">mode_edit</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <mat-form-field appearance="fill" class="col-md-4">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <mat-form-field appearance="fill" class="col-md-4">
+          <mat-label>Select time zone</mat-label>
+          <input type="text" placeholder="Type country code or country name" matInput formControlName="timeZone" [matAutocomplete]="auto" />
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let timeZone of filteredOptions | async" [value]="timeZone">
+              {{ timeZone.Id }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon matSuffix class="edit-icon">arrow_downward</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-4 d-flex justify-content-end">
+          <button [disabled]="!userFormGroup.valid" (click)="update()" class="btn btn-success" type="button">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Security">
+    <form *ngIf="profileForm" [formGroup]="profileForm" class="container profile-container">
+      <div class="row d-flex justify-content-center">
+        <h4>Change Password:</h4>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <mat-form-field appearance="fill" class="col-md-4">
+          <mat-label>Current Password</mat-label>
+          <input
+            [ngClass]="{
+              'is-invalid': submitted && form.currentPassword.errors
+            }"
+            formControlName="currentPassword"
+            id="currentPassword"
+            [type]="toggleVisibility.checked ? 'text' : 'password'"
+            matInput
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <mat-form-field appearance="fill" class="col-md-4">
+          <mat-label>New Password</mat-label>
+          <input
+            #passwordWithValidation
+            [type]="toggleVisibility.checked ? 'text' : 'password'"
+            formControlName="newPassword"
+            matInput
+            required
+          />
+          <mat-hint aria-live="polite">
+            {{ passwordWithValidation.value.length }} /
+            {{ passwordComponentWithValidation.max }}
+          </mat-hint>
+          <mat-error *ngIf="!form.newPassword.value"> Password is required </mat-error>
+          <mat-error *ngIf="form.newPassword.hasError('pattern')"> Password is not valid </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <mat-password-strength #passwordComponentWithValidation [password]="passwordWithValidation.value"> </mat-password-strength>
+
+        <mat-password-strength-info *ngIf="toggle.checked" [passwordComponent]="passwordComponentWithValidation">
+        </mat-password-strength-info>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <mat-form-field appearance="fill" class="col-md-4">
+          <mat-label>Confirm Password</mat-label>
+          <input [type]="toggleVisibility.checked ? 'text' : 'password'" formControlName="confirmNewPassword" matInput required />
+          <mat-error *ngIf="!form.confirmNewPassword.value"> Password is required </mat-error>
+          <mat-error *ngIf="form.confirmNewPassword.hasError('mustMatch')"> Passwords do not match </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <div class="col-4">
+          <mat-slide-toggle #toggle>Show Password Details</mat-slide-toggle>
+          <mat-slide-toggle #toggleVisibility matSuffix> Show Password</mat-slide-toggle>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-4 d-flex justify-content-end">
+          <button (click)="onSubmit()" class="btn btn-success" type="submit">Save changes</button>
+        </div>
+      </div>
+    </form>
+  </mat-tab>
+</mat-tab-group>

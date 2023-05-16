@@ -1,0 +1,120 @@
+<div class="projects-container">
+  <div class="d-flex justify-content-between">
+    <div class="page-header justify-content-between">
+      <h4>
+        Projects
+        <span class="projects-total"> ({{ page.totalItems }} total) </span>
+      </h4>
+
+      <mat-button-toggle-group [value]="isArchive" (change)="filterMonthChange($event)" name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle [checked]="true" [value]="false">Actual</mat-button-toggle>
+        <mat-button-toggle [value]="true">Archive</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div>
+      <button (click)="open(content)" class="btn new-project-button" type="button">New Project</button>
+    </div>
+  </div>
+  <div *ngIf="!loading" class="row projects-table">
+    <div class="no-projects col-md-12" *ngIf="!projectData?.length">No projects</div>
+    <table class="table col-md-12" *ngIf="projectData?.length">
+      <thead class="thead-light">
+        <tr class="row">
+          <th scope="col" class="col-md-10">Name</th>
+          <th scope="col" class="col-md-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row" *ngFor="let item of projectData | paginate: page">
+          <td class="col-md-10">{{ item.name }}</td>
+          <td class="col-md-2 text-right">
+            <span class="cursor-pointer">
+              <i *ngIf="!item.isArchive" (click)="viewProject(item)" class="far fa-eye"></i>
+            </span>
+            <span class="cursor-pointer">
+              <i *ngIf="!item.isArchive" (click)="removeProject(item?.id, deleteModal)" class="far fa-trash-alt left-15"></i>
+            </span>
+            <span class="cursor-pointer">
+              <i *ngIf="!item.isArchive" (click)="updateProject(item, content)" class="far fa-edit left-15"></i>
+            </span>
+            <span class="cursor-pointer">
+              <i *ngIf="item.isArchive" (click)="restoreProject(item?.id, restoreModal)" class="fas fa-trash-restore left-15"></i>
+            </span>
+          </td>
+        </tr>
+        <tr></tr>
+      </tbody>
+    </table>
+    <div class="d-flex w-100 justify-content-end">
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 *ngIf="modalTitle === 1" class="modal-title">Create Project</h4>
+    <h4 *ngIf="modalTitle === 2" class="modal-title">Update Project</h4>
+    <button (click)="modal.dismiss()" aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="modal.close('Save click')" [formGroup]="createForm">
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Project Name</mat-label>
+          <input formControlName="name" matInput placeholder="Project Name" type="text" />
+          <mat-error *ngIf="!form.name"> Name is required </mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <mat-label>Main coefficient</mat-label>
+          <input formControlName="mainCof" matInput placeholder="Main coefficient" type="number" />
+          <mat-error *ngIf="!form.mainCof"> Main is required </mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <mat-label>Weekend coefficient</mat-label>
+          <input formControlName="weekCof" matInput placeholder="Weekend coefficient" type="number" />
+          <mat-error *ngIf="!form.weekCof"> Weekend is required </mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <mat-label>Overtime coefficient</mat-label>
+          <input formControlName="overCof" matInput placeholder="Overtime coefficient" type="number" />
+          <mat-error *ngIf="!form.overCof"> Overtime is required </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button (click)="modal.close('Save click')" [disabled]="!createForm.valid" class="btn save-button" type="submit">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Archive Project</h4>
+  </div>
+  <div class="modal-body">
+    <span>You want to archive project '{{ selectedProject }}'. Are you sure?</span>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default" (click)="modal.dismiss()">Cancel</button>
+    <button class="btn btn-danger" (click)="modal.close()">Archive</button>
+  </div>
+</ng-template>
+
+<ng-template #restoreModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Restore Project</h4>
+  </div>
+  <div class="modal-body">
+    <span>You want to restore project '{{ selectedProject }}'. Are you sure?</span>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default" (click)="modal.dismiss()">Cancel</button>
+    <button class="btn btn-danger" (click)="modal.close()">Кestore</button>
+  </div>
+</ng-template>

@@ -1,0 +1,8 @@
+@import '../../../styles/variables.scss';
+
+.track-button {
+  position: absolute;
+  right: 20px;
+  top: 6px;
+  background-color: $button-green-color;
+}

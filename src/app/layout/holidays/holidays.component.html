@@ -1,0 +1,51 @@
+<h4 class="page-header">Holidays</h4>
+
+<form class="row" [formGroup]="holidaysForm" novalidate>
+  <mat-form-field appearance="fill" class="col-9">
+    <mat-label>Year</mat-label>
+    <mat-select formControlName="year" (selectionChange)="onYearChange($event)">
+      <mat-option *ngFor="let yearItem of years" [value]="yearItem">{{ yearItem }} </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="holidays-field col-9">
+    <mat-label>Holidays</mat-label>
+    <textarea formControlName="holidays" rows="20" matInput placeholder="[DATE],|tab|;|-[DESCRIPTION]"></textarea>
+  </mat-form-field>
+
+  <div class="col-9">
+    <button mat-flat-button color="primary" (click)="update(content)">Update</button>
+    <button mat-flat-button (click)="cancel()">Cancel</button>
+  </div>
+</form>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Update holidays</h4>
+    <button (click)="modal.dismiss('Cross click')" aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let holiday of holidaysData">
+            <td>{{ holiday.date }}</td>
+            <td>{{ holiday.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button (click)="modal.close('save')" class="btn saveButton" type="button">Save</button>
+    <button (click)="modal.close('cancel')" class="btn" type="button">Cancel</button>
+  </div>
+</ng-template>
